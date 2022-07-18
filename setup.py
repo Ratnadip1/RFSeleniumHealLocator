@@ -15,5 +15,6 @@ setup(name="robotframework-seleniumheallocator",
       description='RF Selenium Auto Heal',
       author='Me',
       license='Me',
+      package_dir={'': 'src'},
       install_requires=REQUIREMENTS
       )

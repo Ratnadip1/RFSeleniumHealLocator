@@ -1,6 +1,6 @@
 from robotlibcore import DynamicCore
-from SeleniumHealLocator.keywords import ManageInformation
-from SeleniumHealLocator.utilities import ElementInformation
+from src.SeleniumHealLocator.keywords import ManageInformation
+from src.SeleniumHealLocator.utilities import ElementInformation
 
 
 class SeleniumHealLocator(DynamicCore):

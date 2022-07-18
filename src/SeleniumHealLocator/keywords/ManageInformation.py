@@ -1,4 +1,4 @@
-from SeleniumHealLocator.utilities.ElementInformation import ElementInformation
+from src.SeleniumHealLocator.utilities.ElementInformation import ElementInformation
 from robot.api.deco import keyword
 
 
