@@ -1,6 +1,7 @@
 from robotlibcore import DynamicCore
-from src.SeleniumHealLocator.keywords import ManageInformation
-from src.SeleniumHealLocator.utilities import ElementInformation
+from .keywords.ManageInformation import ManageInformation
+from .keywords.HealElement import HealElement
+from .utilities.ElementInformation import ElementInformation
 
 
 class SeleniumHealLocator(DynamicCore):
@@ -9,14 +10,12 @@ class SeleniumHealLocator(DynamicCore):
         # self.element_info = None
         libraries = [
             ManageInformation(),
-            ElementInformation()
+            ElementInformation(),
+            HealElement()
         ]
         DynamicCore.__init__(self, libraries)
         for keyword in self.get_keyword_names():
             print("Keyword: " + keyword)
 
         pass
-
-
-
 

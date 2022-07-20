@@ -15,15 +15,21 @@ class ElementInformation(object):
     # Constructor for ElementInformation object.
     # Parameters:   folder_location, file_name
     # Description:  Initializes the essential variables for
-    def __init__(self, folder_location, file_name):
-        # Construct the folder location as provided by the argument in
-        # 'Initiate Healing Process' keywords in Robot Framework
+    def __init__(self):
+        self.folder_location = None
+        self.file_name = None
+        pass
+
+    # Construct the folder location as provided by the argument in
+    # 'Initiate Healing Process' keywords in Robot Framework
+    def set_Test_Element_Snapshot_Folder(self, folder_location):
         if folder_location is not None:
             folder_location = os.getcwd() + os.sep + folder_location
             self.folder_location = folder_location
 
-        # Construct the file name as provided by the argument in
-        # 'Initiate Healing Process' keywords in Robot Framework
+    # Construct the file name as provided by the argument in
+    # 'Initiate Healing Process' keywords in Robot Framework
+    def set_Test_Element_Snapshot_File(self, file_name):
         if file_name is not None:
             if not file_name.endswith(".xml"):
                 file_name = file_name.__add__(".xml")

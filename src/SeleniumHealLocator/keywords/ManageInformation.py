@@ -1,4 +1,4 @@
-from src.SeleniumHealLocator.utilities.ElementInformation import ElementInformation
+from ..utilities.ElementInformation import ElementInformation
 from robot.api.deco import keyword
 
 
@@ -18,7 +18,9 @@ class ManageInformation(object):
     def initiate_Healing_Process(self, folder_location, file_name="elements"):
         # Constructs the element information file
 
-        self.element_info = ElementInformation(folder_location, file_name)
+        self.element_info = ElementInformation()
+        self.element_info.set_Test_Element_Snapshot_Folder(folder_location)
+        self.element_info.set_Test_Element_Snapshot_File(file_name)
 
         if self.element_info.info_Exists():
             print("Element Information File {} already exists in Location {}.".format(file_name, folder_location))
