@@ -1,20 +1,26 @@
+import threading
+
 from .PageInfo import PageInfo
 
 
-class PageStore:
-    privateInstance = None
+class PageStore(object):
+
+    __lock = threading.Lock()
+    __pageStoreInstance = None
 
     def __init__(self):
-        self.page_id = 1
         self.pageStoreDict = {}
+        self.page_id = 1
         pass
 
-    def get_Instance(self):
-        if PageStore.privateInstance is None:
-            PageStore.privateInstance = PageStore.__init__(self)
-            print('PrintStore Initialized')
-            pass
-        return PageStore.privateInstance
+    @classmethod
+    def get_Instance(cls):
+        if not cls.__pageStoreInstance:
+            with cls.__lock:
+                if not cls.__pageStoreInstance:
+                    cls.__pageStoreInstance = cls()
+                    pass
+        return cls.__pageStoreInstance
 
     def get_Page_Info(self, url):
         # Remove http_scope from baseUrl
