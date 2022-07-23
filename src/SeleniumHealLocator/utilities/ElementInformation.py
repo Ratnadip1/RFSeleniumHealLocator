@@ -1,40 +1,37 @@
 import os
+import threading
 from os import path
-from xml.dom import minidom
 
 """
-Element Information handles the file operations of the Element Information File used to store
-the 
+Element Information is the base class that handles the file operations of the Element Information
+File used to store the alternate locator strategies, locator and page information of the WebElement
+that are called in the *** Get Heal Locator *** keyword.
 """
 
 
 class ElementInformation(object):
 
-    is_Element_Information_Initiated_Flag = False
-
     # Constructor for ElementInformation object.
     # Parameters:   folder_location, file_name
-    # Description:  Initializes the essential variables for
+    # Description:  Initializes the essential variables for usage in Implementation classes and
+    #               common methods.
+
     def __init__(self):
         self.folder_location = None
         self.file_name = None
+        self._lock = threading.Lock()
         pass
 
     # Construct the folder location as provided by the argument in
     # 'Initiate Healing Process' keywords in Robot Framework
     def set_Test_Element_Snapshot_Folder(self, folder_location):
-        if folder_location is not None:
-            folder_location = os.getcwd() + os.sep + folder_location
+        with self._lock:
+            if not folder_location:
+                folder_location = os.getcwd() + os.sep
+            else:
+                folder_location = os.getcwd() + os.sep + folder_location
             self.folder_location = folder_location
-
-    # Construct the file name as provided by the argument in
-    # 'Initiate Healing Process' keywords in Robot Framework
-    def set_Test_Element_Snapshot_File(self, file_name):
-        if file_name is not None:
-            if not file_name.endswith(".xml"):
-                file_name = file_name.__add__(".xml")
-            self.file_name = file_name
-        pass
+            pass
 
     """
     Method:         infoExists
@@ -51,22 +48,12 @@ class ElementInformation(object):
     """
     Function:       generate_Element_Information
     Type:           Instance
-    Description:    Generates the Element Information file 
+    Description:    Generates the Element Information folder and passes on to 
+    the subclasses for further implementation.
     """
 
     def generate_Element_Information(self):
+        with self._lock:
+            if not path.exists(self.folder_location):
+                os.makedirs(self.folder_location)
 
-        if not path.exists(self.folder_location):
-            os.makedirs(self.folder_location)
-
-        root = minidom.Document()
-
-        xml = root.createElement('elements')
-        root.appendChild(xml)
-
-        xml_str = root.toprettyxml(indent="\t")
-
-        save_path_file = self.folder_location + os.sep + self.file_name
-
-        with open(save_path_file, "w") as f:
-            f.write(xml_str)
