@@ -11,6 +11,7 @@ that are called in the *** Get Heal Locator *** keyword.
 
 class ElementInformation(object):
 
+    _lock = None
     # Constructor for ElementInformation object.
     # Parameters:   folder_location, file_name
     # Description:  Initializes the essential variables for usage in Implementation classes and
@@ -19,7 +20,7 @@ class ElementInformation(object):
     def __init__(self):
         self.folder_location = None
         self.file_name = None
-        self._lock = threading.Lock()
+        ElementInformation._lock = threading.Lock()
         pass
 
     # Construct the folder location as provided by the argument in
@@ -53,7 +54,7 @@ class ElementInformation(object):
     """
 
     def generate_Element_Information(self):
-        with self._lock:
+        with ElementInformation._lock:
             if not path.exists(self.folder_location):
                 os.makedirs(self.folder_location)
 
