@@ -26,7 +26,7 @@ class ElementInformation(object):
     # Construct the folder location as provided by the argument in
     # 'Initiate Healing Process' keywords in Robot Framework
     def set_Test_Element_Snapshot_Folder(self, folder_location):
-        with self._lock:
+        with ElementInformation._lock:
             if not folder_location:
                 folder_location = os.getcwd() + os.sep
             else:

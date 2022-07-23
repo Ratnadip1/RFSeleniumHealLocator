@@ -14,11 +14,9 @@ Processing and retrieving information from Element Information file is also impl
 
 class XmlFileOperator(ElementInformation):
 
-    _lock = None
-
     def __init__(self):
         super()
-        XmlFileOperator._lock = threading.Lock()
+        ElementInformation._lock = threading.Lock()
 
     # Construct the file name as provided by the argument in
     # 'Initiate Healing Process' keywords in Robot Framework
@@ -29,8 +27,8 @@ class XmlFileOperator(ElementInformation):
 
             self.file_name = file_name
             pass
-        except HealLocatorException as ex:
-            print(ex.with_traceback())
+        except Exception as ex:
+            raise HealLocatorException('Error occurred while constructing Element Information File Name')
             pass
 
     # Generates the XML file for the first time if it is not already available.
@@ -50,8 +48,8 @@ class XmlFileOperator(ElementInformation):
 
                 with open(save_path_file, "w") as f:
                     f.write(xml_str)
-        except HealLocatorException as exception:
-            print(exception.with_traceback())
+        except Exception as ex:
+            raise HealLocatorException('Error occurred while generating Element Information file in .xml format')
             pass
 
     pass
