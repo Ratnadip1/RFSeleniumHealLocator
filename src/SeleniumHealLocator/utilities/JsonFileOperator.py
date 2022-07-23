@@ -1,3 +1,4 @@
+import os
 import threading
 import json
 
@@ -38,9 +39,15 @@ class JsonFileOperator(ElementInformation):
         super().generate_Element_Information()
         try:
             with JsonFileOperator._lock:
-                element_json = {'elements': {}}
-                with open(self.file_name, 'w') as jsonFile:
-                    jsonFile.write(json.dump(element_json, ensure_ascii=False, indent=4))
+                # Constructing the blank Json with elements Json Array
+                element_json = {"elements": {}}
+
+                # Constructing the path where Json file will be saved
+                save_path_file = self.folder_location + os.sep + self.file_name
+
+                # Write the startup json content into the newly generated Element Information file in .json format
+                with open(save_path_file, 'a') as jsonFile:
+                    json.dump(element_json, jsonFile, ensure_ascii=False, indent=4)
                 pass
 
         except Exception as ex:

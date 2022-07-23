@@ -38,3 +38,29 @@ def testInitiateHealingProcessInvalid_Format():
     except Exception as expectedException:
         print(expectedException)
         raise AssertionError('Invalid Format')
+
+
+def testInitiateHealingProcessFolderOnlyJson():
+    try:
+        manage_info = ManageInformation()
+        manage_info.initiate_Healing_Process('TestJson', file_type='.json')
+        test_folder = os.getcwd() + os.sep + 'TestJson'
+        assert True, path.exists(test_folder)
+        test_file = path.join(test_folder, 'elements.json')
+        assert True, path.isfile(test_file)
+    except AssertionError as assertError:
+        print(assertError)
+        raise assertError
+
+
+def testInitiateHealingProcessFolder_FileNameJson():
+    try:
+        manage_info = ManageInformation()
+        manage_info.initiate_Healing_Process('TestJson', 'newdoc', '.json')
+        test_folder = os.getcwd() + os.sep + 'TestJson'
+        assert True, path.exists(test_folder)
+        test_file = path.join(test_folder, 'newdoc.json')
+        assert True, path.isfile(test_file)
+    except AssertionError as assertError:
+        print(assertError)
+        raise assertError

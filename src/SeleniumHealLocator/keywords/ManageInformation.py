@@ -48,5 +48,5 @@ class ManageInformation(object):
                     self.element_info.generate_Element_Information()
                     self.logger.info("Element Information file generated...")
         except HealLocatorException as exception:
-            self.logger.error(exception)
+            self.logger.error(str(exception))
             pass
