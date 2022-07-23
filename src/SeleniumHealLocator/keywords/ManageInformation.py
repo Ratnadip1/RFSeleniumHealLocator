@@ -1,5 +1,6 @@
 from ..exceptions.HealLocatorException import HealLocatorException
 from ..utilities import FileOperatorSwitcher
+from ..utilities.HealLog import HealLog
 from robot.api.deco import keyword
 from robot.output.logger import Logger
 
@@ -8,7 +9,7 @@ class ManageInformation(object):
 
     def __init__(self):
         self.element_info = None
-        self.logger = Logger()
+        self.logger = HealLog()
         pass
 
     """
@@ -42,10 +43,10 @@ class ManageInformation(object):
                 # Validates if the Element Information file is already in place. If not,
                 # generates an Element Information file with a root element.
                 if self.element_info.info_Exists():
-                    self.logger.message("Element Information File {} already exists in Location {}.".format(file_name, folder_location))
+                    self.logger.info("Element Information File {} already exists in Location {}.".format(file_name, folder_location))
                 else:
                     self.element_info.generate_Element_Information()
-                    self.logger.message("Element Information file generated...")
+                    self.logger.info("Element Information file generated...")
         except HealLocatorException as exception:
-            self.logger.error(exception.with_traceback())
+            self.logger.error(exception)
             pass
