@@ -8,12 +8,13 @@ with open(join(CURDIR, 'requirements.txt')) as f:
     REQUIREMENTS = f.read().splitlines()
 
 setup(name="robotframework-seleniumheallocator",
-      packages=find_packages(include=['SeleniumHealLocator.keywords',
-                                      'SeleniumHealLocator.utilities',
-                                      'SeleniumHealLocator']),
+      package_dir={'': 'src'},
+      packages=find_packages('src'),
       version='1.0.0',
       description='RF Selenium Auto Heal',
-      author='Me',
-      license='Me',
+      author='Ratnadip Chaudhuri',
+      author_email='ratnadip.chaudhuri@gmail.com',
+      license='Open',
+
       install_requires=REQUIREMENTS
       )
