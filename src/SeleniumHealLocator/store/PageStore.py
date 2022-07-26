@@ -1,6 +1,12 @@
 import threading
 
 from .PageInfo import PageInfo
+from .. import ManageInformation
+
+"""
+PageStore class stores the information of all the pages explored during the test run and 
+saves them in the Element Information file.
+"""
 
 
 class PageStore(object):
@@ -10,7 +16,9 @@ class PageStore(object):
 
     def __init__(self):
         self.pageStoreDict = {}
-        self.page_id = 1
+        self.elementInfo = ManageInformation.get_Instance().get_Element_Info()
+        self.populate_page_Store_Dict()
+        self.page_id = len(self.pageStoreDict) + 1
         pass
 
     @classmethod
@@ -24,6 +32,9 @@ class PageStore(object):
 
     def get_Page_Info(self, url):
         # Remove http_scope from baseUrl
+        base_url = None
+        path = None
+        page_scope = None
 
         if url.startswith("http"):
             page_scope = url[0: url.index("://") + 3]
@@ -40,9 +51,9 @@ class PageStore(object):
         page_id = self.is_page_listed(base_url, path, page_scope)
 
         if page_id is None:
-            page = PageInfo(page_base_url=base_url, page_path=path, page_scope=page_scope)
+            page = PageInfo(page_id=self.page_id, page_base_url=base_url, page_path=path, page_scope=page_scope)
             print('Page information is not available in Page Store: ' + str(page))
-            self.pageStoreDict[self.page_id] = page
+            self.pageStoreDict[str(self.page_id)] = page
             page_id = self.page_id
             self.page_id += 1
             pass
@@ -70,3 +81,10 @@ class PageStore(object):
             return None
         else:
             return list(filtered_dict.keys())[0]
+
+    def populate_page_Store_Dict(self):
+
+        page_list = self.elementInfo.getPageList()
+        for page in page_list:
+            self.pageStoreDict[str(page.get_Page_Id())] = page
+        pass

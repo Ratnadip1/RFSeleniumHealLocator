@@ -1,9 +1,11 @@
 import os
 import threading
 from xml.dom import minidom
+import xml.etree.ElementTree as ET
 
 from ..utilities.ElementInformation import ElementInformation
 from ..exceptions.HealLocatorException import HealLocatorException
+from ..store.PageInfo import PageInfo
 
 """
 XmlFileOperator is used to implement the construction of 'XML' based Element Information file.
@@ -15,7 +17,7 @@ Processing and retrieving information from Element Information file is also impl
 class XmlFileOperator(ElementInformation):
 
     def __init__(self):
-        super()
+        super().__init__()
         ElementInformation._lock = threading.Lock()
 
     # Construct the file name as provided by the argument in
@@ -27,7 +29,7 @@ class XmlFileOperator(ElementInformation):
 
             self.file_name = file_name
             pass
-        except Exception as ex:
+        except Exception:
             raise HealLocatorException('Error occurred while constructing Element Information File Name')
             pass
 
@@ -48,8 +50,25 @@ class XmlFileOperator(ElementInformation):
 
                 with open(save_path_file, "w") as f:
                     f.write(xml_str)
-        except Exception as ex:
+        except Exception:
             raise HealLocatorException('Error occurred while generating Element Information file in .xml format')
             pass
+
+    # Method:       get_Page_List
+    # Type:         Instance
+    # Description:  Retrieves the list of pages available in Element Information File.
+    #               The implementation in the given method is for .xml file type
+    # Returns:      List of PageInfo parsed from Element Information file.
+    def get_Page_List(self):
+        page_list = []
+        tree = ET.parse(self.folder_location + os.sep + self.file_name)
+        root = tree.getroot()
+        for pageItem in root.findall('.//page'):
+            page_entry = PageInfo(page_id=pageItem.attrib['id'])
+            page_entry.set_Page_Scope(page_scope=pageItem.attrib['scope'])
+            page_entry.set_Page_Base_Url(page_base_url=pageItem.attrib['baseUrl'])
+            page_entry.set_Page_Path(page_path=pageItem.attrib['path'])
+            page_list.append(page_entry)
+        pass
 
     pass

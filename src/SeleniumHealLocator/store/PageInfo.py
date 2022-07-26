@@ -7,11 +7,15 @@ Description:
 
 class PageInfo(object):
 
-    def __init__(self, page_base_url=None, page_path=None, page_scope=None):
+    def __init__(self, page_id=None, page_base_url=None, page_path=None, page_scope=None):
+        self.page_id = page_id
         self.page_base_url = page_base_url
         self.page_path = page_path
         self.page_scope = page_scope
         pass
+
+    def get_Page_Id(self):
+        return self.page_id
 
     def get_Page_Base_Url(self):
         return self.page_base_url
