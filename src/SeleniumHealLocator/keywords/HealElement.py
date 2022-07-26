@@ -2,6 +2,9 @@ from robot.libraries.BuiltIn import BuiltIn
 from robot.api.deco import keyword
 
 from ..store.PageStore import PageStore
+from ..store.LocatorStore import LocatorStore
+from ..utilities.HealLog import HealLog
+from ..exceptions.HealLocatorException import HealLocatorException
 
 """
 HealElement performs the logic of evaluation and returning the locator that could be used to identify the WebElement.
@@ -23,17 +26,21 @@ class HealElement(object):
 
     def __init__(self):
         self.browser = None
-        self.pageStore = PageStore.get_Instance()
+        self.pageStore = PageStore.get_Instance()  # Singleton reference of PageStore object
+        self.locatorStore = LocatorStore.get_Instance()  # Singleton reference of LocatorStore object.
+        self.logger = HealLog()
         pass
 
     @keyword
     def get_Heal_Locator(self, locator):
-        # print("Title: " + self.browser.title)
-        # print("Url: " + self.browser.current_url)
+        try:
+            if not self.browser:
+                self.browser = HealElement.getFrameworkDriver()
+            page_id = self.pageStore.get_Page_Info(self.browser.current_url)
 
-        # print("Locator: " + locator)
-        page_id = self.pageStore.get_Page_Info(self.browser.current_url)
-        page_id = PageStore.get_Page_Info(self.browser.current_url)
+            locator_id = self.locatorStore.get_Locator_Id(page_id, locator)
+        except HealLocatorException as exception:
+            self.logger.error(exception)
         return locator
 
     @staticmethod
