@@ -17,6 +17,8 @@ class ManageInformation(object):
         self.logger = HealLog()
         pass
 
+    # Singleton implementation of ManageInformation class to refer to
+    # the initiation procedure and data throughout the framework as required.
     @classmethod
     def get_Instance(cls):
         if not cls.__manageInfoInstance:
@@ -63,3 +65,7 @@ class ManageInformation(object):
         except HealLocatorException as exception:
             self.logger.error(str(exception))
             pass
+
+    # Returns the Element Information implementation instance for the session.
+    def get_Element_Info(self):
+        return self.element_info
