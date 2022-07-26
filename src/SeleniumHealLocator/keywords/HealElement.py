@@ -24,6 +24,7 @@ and the script will fail.
 
 class HealElement(object):
 
+    # Constructor for HealElement initializing the locator evaluation process.
     def __init__(self):
         self.browser = None
         self.pageStore = PageStore.get_Instance()  # Singleton reference of PageStore object
@@ -43,11 +44,15 @@ class HealElement(object):
             self.logger.error(exception)
         return locator
 
+    # Method:       getFrameworkDriver
+    # Type:         static
+    # Description:  Retrieves the current Robot Framework browser on runtime
+    #               to operate and evaluate alternate locators for the given locator.
     @staticmethod
     def getFrameworkDriver():
         try:
             selenium_library = BuiltIn().get_library_instance('SeleniumLibrary')
             browser = selenium_library.driver
         except Exception as exception:
-            raise HealLocatorException('Error on getting Selenium Library instance.')
+            raise HealLocatorException('Error on getting Selenium Library instance/ browser reference from Robot Framework instance.')
         return browser
