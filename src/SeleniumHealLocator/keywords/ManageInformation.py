@@ -1,3 +1,5 @@
+import threading
+
 from ..exceptions.HealLocatorException import HealLocatorException
 from ..utilities import FileOperatorSwitcher
 from ..utilities.HealLog import HealLog
@@ -7,9 +9,20 @@ from robot.output.logger import Logger
 
 class ManageInformation(object):
 
+    __manageInfoInstance = None
+    _lock = threading.Lock()
+
     def __init__(self):
         self.element_info = None
         self.logger = HealLog()
+        pass
+
+    @classmethod
+    def get_Instance(cls):
+        if not cls.__manageInfoInstance:
+            with cls._lock:
+                if not cls.__manageInfoInstance:
+                    cls.__manageInfoInstance = cls()
         pass
 
     """

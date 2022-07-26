@@ -15,7 +15,7 @@ class SeleniumHealLocator(DynamicCore):
     def __init__(self):
         # Listing the libraries with Keywords to be used by Robot Framework
         libraries = [
-            ManageInformation(),
+            ManageInformation.get_Instance(),
             HealElement()
         ]
 
