@@ -1,12 +1,14 @@
 
 """
-Class: PageInfo
-Description:
+Class:          PageInfo
+Description:    Data Container class to store information about individual pages.
+Attributes:     page_id, page_base_url, page_path, page_scope
 """
 
 
 class PageInfo(object):
 
+    # Constructor for PageInfo objects
     def __init__(self, page_id=None, page_base_url=None, page_path=None, page_scope=None):
         self.page_id = page_id
         self.page_base_url = page_base_url
@@ -14,6 +16,7 @@ class PageInfo(object):
         self.page_scope = page_scope
         pass
 
+    # Getters and setters
     def get_Page_Id(self):
         return self.page_id
 
@@ -35,6 +38,7 @@ class PageInfo(object):
     def set_Page_Scope(self, page_scope):
         self.page_scope = page_scope
 
+    # String representation of PageInfo object.
     def __repr__(self):
         return 'PageInfo: base_url-> ' \
                + self.page_base_url + ', path-> ' \
