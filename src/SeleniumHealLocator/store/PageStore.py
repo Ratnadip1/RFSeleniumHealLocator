@@ -1,7 +1,7 @@
 import threading
 
 from .PageInfo import PageInfo
-from .. import ManageInformation
+from ..keywords.ManageInformation import ManageInformation
 from ..utilities.HealLog import HealLog
 
 """
@@ -14,7 +14,6 @@ current page information is constructed and added to the PageStore list.
 
 
 class PageStore(object):
-
     __lock = threading.Lock()
     __pageStoreInstance = None
 
@@ -109,7 +108,7 @@ class PageStore(object):
 
     # Retrieves the list of PageInfo from Element Information file and stores it in PageInfo.
     def populate_page_Store_Dict(self):
-        page_list = self.elementInfo.getPageList()
+        page_list = self.elementInfo.get_Page_List()
         for page in page_list:
             self.pageStoreDict[str(page.get_Page_Id())] = page
         pass
