@@ -35,6 +35,8 @@ class HealElement(object):
     @keyword
     def get_Heal_Locator(self, locator):
         try:
+            # Initiates the browser instance by referencing the browser in the RobotFramework
+            # SeleniumLibrary.
             if not self.browser:
                 self.browser = HealElement.getFrameworkDriver()
             page_id = self.pageStore.get_Page_Info(self.browser.current_url)
