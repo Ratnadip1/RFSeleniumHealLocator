@@ -69,6 +69,6 @@ class XmlFileOperator(ElementInformation):
             page_entry.set_Page_Base_Url(page_base_url=pageItem.attrib['baseUrl'])
             page_entry.set_Page_Path(page_path=pageItem.attrib['path'])
             page_list.append(page_entry)
-        pass
+        return page_list
 
     pass
