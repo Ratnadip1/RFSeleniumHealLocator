@@ -7,7 +7,6 @@ locators and create alternate locators.
 
 
 class Strategy(enum.Enum):
-
     # 'id' is used for 'id' locator strategy.
     id = 1
 
@@ -26,7 +25,17 @@ class Strategy(enum.Enum):
     # 'linkText' is used for 'linkText' locator strategy.
     linkText = 6
 
-    # 'linkText' is used for 'linkText' locator strategy.
-    tagName = 7
+    # 'tag' is used for 'tag name' locator strategy.
+    tag = 7
+
+    # 'identifier' is used for either 'id' or 'name' locator strategy.
+    identifier = 8
+
+    # 'partialLinkText' is used for 'partial link text' locator strategy.
+    partialLinkText = 9
 
     pass
+
+
+print(__name__)
+print(__package__)
