@@ -8,7 +8,6 @@ from robot.output.logger import Logger
 
 
 class ManageInformation(object):
-
     __manageInfoInstance = None
     _lock = threading.Lock()
 
@@ -25,6 +24,7 @@ class ManageInformation(object):
             with cls._lock:
                 if not cls.__manageInfoInstance:
                     cls.__manageInfoInstance = cls()
+        return cls.__manageInfoInstance
         pass
 
     """

@@ -23,8 +23,8 @@ class PageStore(object):
     # Initiates the index based on existing data in ElementInfo value.
     def __init__(self):
         self.pageStoreDict = {}
-        self.elementInfo = ManageInformation.get_Instance().get_Element_Info()
-        self.populate_page_Store_Dict()
+        self.elementInfo = None  # ManageInformation.get_Instance().get_Element_Info()
+        # self.populate_page_Store_Dict()
         self.page_id = len(self.pageStoreDict) + 1
         self.logger = HealLog()
         pass
@@ -43,6 +43,11 @@ class PageStore(object):
         return cls.__pageStoreInstance
 
     def get_Page_Info(self, url):
+        if not self.elementInfo:
+            self.elementInfo = ManageInformation.get_Instance().get_Element_Info()
+            self.populate_page_Store_Dict()
+            self.page_id = len(self.pageStoreDict) + 1
+
         # Initializing local variables.
         base_url = None
         path = None
