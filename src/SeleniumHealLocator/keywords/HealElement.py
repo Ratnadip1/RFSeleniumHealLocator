@@ -3,6 +3,7 @@ from robot.api.deco import keyword
 
 from ..store.PageStore import PageStore
 from ..store.LocatorStore import LocatorStore
+from ..store.LocatorInfo import LocatorInfo
 from ..utilities.HealLog import HealLog
 from ..exceptions.HealLocatorException import HealLocatorException
 
@@ -40,8 +41,10 @@ class HealElement(object):
             if not self.browser:
                 self.browser = HealElement.getFrameworkDriver()
             page_id = self.pageStore.get_Page_Info(self.browser.current_url)
-
-            locator_id = self.locatorStore.get_Locator_Id(page_id, locator)
+            current_locator_info = LocatorInfo.process_locator(locator)
+            self.logger.info('Strategy: ' + str(current_locator_info.get_strategy()))
+            self.logger.info('Locator: ' + str(current_locator_info.get_locator()))
+            # locator_id = self.locatorStore.get_Locator_Id(page_id, locator)
         except HealLocatorException as exception:
             self.logger.error(exception)
         return locator
