@@ -34,8 +34,20 @@ class Strategy(enum.Enum):
     # 'partialLinkText' is used for 'partial link text' locator strategy.
     partialLinkText = 9
 
+    @staticmethod
+    def get_Strategy_Type(locator_strategy):
+        switcher = {
+            'id': Strategy.id,
+            'name': Strategy.name,
+            'identifier': Strategy.identifier,
+            'xpath': Strategy.xpath,
+            'css': Strategy.cssSelector,
+            'class': Strategy.cls,
+            'tag': Strategy.tag,
+            'link': Strategy.linkText,
+            'partial link': Strategy.partialLinkText
+        }
+        return switcher.get(locator_strategy, None)
+
     pass
 
-
-print(__name__)
-print(__package__)
