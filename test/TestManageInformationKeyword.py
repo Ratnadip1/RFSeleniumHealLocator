@@ -9,9 +9,9 @@ def testInitiateHealingProcessFolderOnlyXml():
         manage_info = ManageInformation()
         manage_info.initiate_Healing_Process('Test')
         test_folder = os.getcwd() + os.sep + 'Test'
-        assert True, path.exists(test_folder)
+        assert path.exists(test_folder)
         test_file = path.join(test_folder, 'elements.xml')
-        assert True, path.isfile(test_file)
+        assert path.isfile(test_file)
     except AssertionError as assertError:
         print(assertError)
         raise assertError
@@ -22,9 +22,9 @@ def testInitiateHealingProcessFolder_FileNameXml():
         manage_info = ManageInformation()
         manage_info.initiate_Healing_Process('Test', 'newdoc')
         test_folder = os.getcwd() + os.sep + 'Test'
-        assert True, path.exists(test_folder)
+        assert path.exists(test_folder)
         test_file = path.join(test_folder, 'newdoc.xml')
-        assert True, path.isfile(test_file)
+        assert path.isfile(test_file)
     except AssertionError as assertError:
         print(assertError)
         raise assertError
@@ -45,9 +45,9 @@ def testInitiateHealingProcessFolderOnlyJson():
         manage_info = ManageInformation()
         manage_info.initiate_Healing_Process('TestJson', file_type='.json')
         test_folder = os.getcwd() + os.sep + 'TestJson'
-        assert True, path.exists(test_folder)
+        assert path.exists(test_folder)
         test_file = path.join(test_folder, 'elements.json')
-        assert True, path.isfile(test_file)
+        assert path.isfile(test_file)
     except AssertionError as assertError:
         print(assertError)
         raise assertError
@@ -58,9 +58,9 @@ def testInitiateHealingProcessFolder_FileNameJson():
         manage_info = ManageInformation()
         manage_info.initiate_Healing_Process('TestJson', 'newdoc', '.json')
         test_folder = os.getcwd() + os.sep + 'TestJson'
-        assert True, path.exists(test_folder)
+        assert path.exists(test_folder)
         test_file = path.join(test_folder, 'newdoc.json')
-        assert True, path.isfile(test_file)
+        assert path.isfile(test_file)
     except AssertionError as assertError:
         print(assertError)
         raise assertError
