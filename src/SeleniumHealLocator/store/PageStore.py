@@ -75,7 +75,7 @@ class PageStore(object):
         if page_id is None:
             page = PageInfo(page_id=self.page_id, page_base_url=base_url, page_path=path, page_scope=page_scope)
             self.logger.info('Page information is not available in Page Store: ' + str(page))
-            self.pageStoreDict[str(self.page_id)] = page
+            self.pageStoreDict[self.page_id] = page
             page_id = self.page_id
             self.page_id += 1
         else:
@@ -110,5 +110,5 @@ class PageStore(object):
     def populate_page_Store_Dict(self):
         page_list = self.elementInfo.get_Page_List()
         for page in page_list:
-            self.pageStoreDict[str(page.get_Page_Id())] = page
+            self.pageStoreDict[int(page.get_Page_Id())] = page
         pass
